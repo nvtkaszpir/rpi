@@ -1,10 +1,12 @@
 #!/bin/bash
 set -ex
+SCRIPT_DIR="$(realpath "$(dirname "$0")")"
+
 export DEBIAN_FRONTEND=noninteractive
 
 hostnamectl set-hostname hormes
 
-cp -rf etc/* /etc/
+cp -rf "${SCRIPT_DIR}/etc/" /etc/
 dpkg-reconfigure -f noninteractive locales
 dpkg-reconfigure -f noninteractive tzdata
 
@@ -47,7 +49,7 @@ apt-get install -y \
   && echo "OK!"
 
 # disable IPv6
-cp -f etc/sysctl.d/ipv6-disable.conf /etc/sysctl.d/ipv6-disable.conf
+cp -f "${SCRIPT_DIR}/etc/sysctl.d/ipv6-disable.conf" /etc/sysctl.d/ipv6-disable.conf
 
 systemctl enable chrony
 systemctl start chrony
@@ -62,7 +64,7 @@ systemctl enable ssh
 systemctl start ssh
 
 # more user friendly message on main screen
-cp -f etc/issue /etc/issue
+cp -f "${SCRIPT_DIR}/etc/issue" /etc/issue
 
 # you never know, lol ;)
 apt-get install -y openjdk-11-jdk
@@ -71,5 +73,6 @@ apt-get install -y openjdk-11-jdk
 chown -R 1000:1000 /home/pi
 
 # fzf
+rm -rf ~/.fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install --all --no-zsh --no-fish

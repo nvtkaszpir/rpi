@@ -14,9 +14,6 @@ or to install anything on any other machine.
 
 * use at least 32GB sdcard
 * tested with `buster` only
-* Fix audio in `buster` by editing file under
-  `/usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf`
-  and commenting out `audio-mono` entry.
 * wifi-ap was not fully tested, just wrote it from memory but should work
 * anything else ¯\_(ツ)_/¯
 
@@ -40,7 +37,7 @@ sudo apt-get update && sudo apt-get install -y git tmux
 tmux
 git clone http://github.com/nvtkaszpir/rpi
 cd rpi
-./base/config.sh
+sudo ./base/config.sh
 
 ```
 
@@ -49,7 +46,6 @@ Run other customizations scripts if needed.
 ## TODO
 
 * notification that install is complete (slack/discord)
-* fix that alsa-mixer mono output
 * test wifi-ap
 * wrapper script for mounted sd-card?
 * fetch data for donkey from gh
