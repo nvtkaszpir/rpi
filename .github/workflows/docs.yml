@@ -8,7 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: "check env vars"
+        run: |
+          export | sort
+          env | sort
+          ls -la
       - name: markdownlint-cli
         uses: nosborn/github-action-markdown-cli@v1
         with:
           files: .
+          config_file: .markdownlint.yaml
+
+      - name: markdownlint-cli-doublequote
+        uses: nosborn/github-action-markdown-cli@v1
+        with:
+          files: .
+          config_file: ".markdownlint.yaml"
+
+      - name: markdownlint-cli-hack
+        uses: nosborn/github-action-markdown-cli@v1
+        with:
+          files: -c .markdownlint.yaml .
+          # files: .
+          # config_file: .markdownlint.yaml
