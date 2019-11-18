@@ -73,5 +73,6 @@ apt-get install -y openjdk-11-jdk
 chown -R 1000:1000 /home/pi
 
 # fzf
+rm -rf ~/.fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install --all --no-zsh --no-fish
