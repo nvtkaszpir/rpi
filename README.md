@@ -7,14 +7,16 @@ or to install anything on any other machine.
 
 * base - base config
 * donkey - extend base with donkeycar specific settings
-* wifi-ap - extend base which will convert rpi into wifi accesspoint,
+* wifi-ap - extend base which will convert rpi into wifi access point,
   with NAT/MASQUERAE over eth0 interface
 
 ## Known limitations
 
 * use at least 32GB sdcard
 * tested with `buster` only
-* Fix audio in `buster` by editing `/usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf` and commenting out `audio-mono` entry.
+* Fix audio in `buster` by editing file under
+  `/usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf`
+  and commenting out `audio-mono` entry.
 * wifi-ap was not fully tested, just wrote it from memory but should work
 * anything else ¯\_(ツ)_/¯
 
@@ -35,7 +37,7 @@ ssh pi@raspberrypi
 mkdir ~/src/
 cd ~/src
 sudo apt-get update && sudo apt-get install -y git tmux
-tmux 
+tmux
 git clone http://github.com/nvtkaszpir/rpi
 cd rpi
 ./base/config.sh
@@ -44,7 +46,7 @@ cd rpi
 
 Run other customizations scripts if needed.
 
-# TODO
+## TODO
 
 * notification that install is complete (slack/discord)
 * fix that alsa-mixer mono output
