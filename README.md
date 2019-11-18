@@ -7,7 +7,7 @@ or to install anything on any other machine.
 
 * base - base config
 * donkey - extend base with donkeycar specific settings
-* wifi-ap - extend base which will convert rpi into wifi accesspoint,
+* wifi-ap - extend base which will convert rpi into wifi access point,
   with NAT/MASQUERAE over eth0 interface
 
 ## Known limitations
@@ -34,7 +34,7 @@ ssh pi@raspberrypi
 mkdir ~/src/
 cd ~/src
 sudo apt-get update && sudo apt-get install -y git tmux
-tmux 
+tmux
 git clone http://github.com/nvtkaszpir/rpi
 cd rpi
 sudo ./base/config.sh
@@ -43,7 +43,7 @@ sudo ./base/config.sh
 
 Run other customizations scripts if needed.
 
-# TODO
+## TODO
 
 * notification that install is complete (slack/discord)
 * test wifi-ap

@@ -1,0 +1,20 @@
+---
+name: CI
+
+on: [push]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: "check env vars"
+        run: |
+          export | sort
+          env | sort
+          ls -la
+      - name: markdownlint-cli
+        uses: nvtkaszpir/github-action-markdown-cli@master
+        with:
+          files: .
+          config_file: .markdownlint.yaml
