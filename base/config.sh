@@ -1,0 +1,75 @@
+#!/bin/bash
+set -ex
+export DEBIAN_FRONTEND=noninteractive
+
+hostnamectl set-hostname hormes
+
+cp -rf etc/* /etc/
+dpkg-reconfigure -f noninteractive locales
+dpkg-reconfigure -f noninteractive tzdata
+
+apt-get update
+apt-get -y dist-upgrade
+apt-get remove -y ntp
+apt-get install -y \
+  chrony \
+  curl \
+  dnsmasq \
+  dnsutils \
+  dstat \
+  fping \
+  git \
+  htp \
+  inxi \
+  iotop \
+  lnav \
+  lsb-release \
+  mc \
+  mtr \
+  multitail \
+  nano \
+  ncdu \
+  nmap \
+  openssh-server \
+  psmisc \
+  python-dev \
+  python3-dev \
+  rfkill \
+  rsync \
+  rsyslog \
+  sysstat \
+  tmux \
+  tree \
+  unzip \
+  wget \
+  xz-utils \
+  zip \
+  && echo "OK!"
+
+# disable IPv6
+cp -f etc/sysctl.d/ipv6-disable.conf /etc/sysctl.d/ipv6-disable.conf
+
+systemctl enable chrony
+systemctl start chrony
+
+systemctl enable rsyslog
+systemctl start rsyslog
+
+systemctl enable dnsmasq
+systemctl start dnsmasq
+
+systemctl enable ssh
+systemctl start ssh
+
+# more user friendly message on main screen
+cp -f etc/issue /etc/issue
+
+# you never know, lol ;)
+apt-get install -y openjdk-11-jdk
+
+# pi
+chown -R 1000:1000 /home/pi
+
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
