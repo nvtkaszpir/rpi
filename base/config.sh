@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 hostnamectl set-hostname hormes
 
-cp -rf "${SCRIPT_DIR}/etc/*" /etc/
+cp -rf "${SCRIPT_DIR}/etc/" /etc/
 dpkg-reconfigure -f noninteractive locales
 dpkg-reconfigure -f noninteractive tzdata
 
