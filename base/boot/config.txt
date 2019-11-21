@@ -3,8 +3,8 @@ disable_splash=1
 enable_uart=0
 dtparam=i2c_arm=on
 dtparam=spi=on
-# set to 1 to turn on gui
-start_x=0
+# set to 1 to turn on gui or camera
+start_x=1
 # if you ave gui, make gpu memory 128, otherwise 16 is enough
 gpu_mem=128
 
