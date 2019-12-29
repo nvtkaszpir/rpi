@@ -48,6 +48,13 @@ apt-get install -y \
   zip \
   && echo "OK!"
 
+# rpi specific packages
+apt-get install -y \
+  python3-gpiozero \
+  python3-picamera \
+  wiringpi \
+  && echo "Rpi packages OK!"
+
 # disable IPv6
 cp -f "${SCRIPT_DIR}/etc/sysctl.d/ipv6-disable.conf" /etc/sysctl.d/ipv6-disable.conf
 
