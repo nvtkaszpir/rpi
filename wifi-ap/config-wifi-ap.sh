@@ -22,7 +22,7 @@ systemctl start chrony
 # enable NAT
 cp -f "${SCRIPT_DIR}/etc/sysctl.d/ipv4-forward.conf" /etc/sysctl.d/ipv4-forward.conf
 iptables -t nat -A  POSTROUTING -o eth0 -j MASQUERADE
-iptables-save > /etc/iptables/iptables.ipv4.nat
+iptables-save > /etc/iptables.ipv4.nat
 cp -f "${SCRIPT_DIR}/etc/rc.local" /etc/rc.local
 
 # set static IP for WiFi card
