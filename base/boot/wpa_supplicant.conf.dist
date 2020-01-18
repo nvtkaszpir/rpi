@@ -1,0 +1,23 @@
+# this is a wpa_supplicant.conf example file
+# you need to:
+# - set proper country code you are in
+# - update psk keys in networks
+# then save as wpa_supplicant.conf and run config installer
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=PL
+
+network={
+    id_str="cthulhu"
+    ssid="cthulhu"
+    # generate by wpa_passphrase cthulhu
+    psk=...
+}
+
+network={
+    id_str="cthulhu-n6"
+    ssid="cthulhu-n6"
+    # generate by wpa_passphrase cthulhu-n6
+    psk=...
+}
