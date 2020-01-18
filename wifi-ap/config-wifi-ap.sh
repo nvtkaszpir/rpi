@@ -26,12 +26,15 @@ iptables-save > /etc/iptables.ipv4.nat
 cp -f "${SCRIPT_DIR}/etc/rc.local" /etc/rc.local
 
 # set static IP for WiFi card
-cp -f "${SCRIPT_DIR}/etc/dhcpcd.conf" /etc/dhcpcd.conf
+cp -f /etc/dhcpcd.conf /etc/dhcpcd-default.conf
+cp -f "${SCRIPT_DIR}/etc/dhcpcd-ap.conf" /etc/dhcpcd-ap.conf
+cp -f /etc/dhcpcd-ap.conf /etc/dhcpcd.conf
 
 # set up dnsmasq as DNS server and DHCP server
 systemctl enable dnsmasq
-systemctl stop dnsmasq
-cp -f "${SCRIPT_DIR}/etc/dnsmasq.conf" /etc/dnsmasq.conf
+cp -f /etc/dnsmasq.conf /etc/dnsmasq-default.conf
+cp -f "${SCRIPT_DIR}/etc/dnsmasq-ap.conf" /etc/dnsmasq-ap.conf
+cp -f /etc/dnsmasq-ap.conf /etc/dnsmasq.conf
 
 # disable current WiFi
 systemctl disable wpa_supplicant.service
@@ -43,4 +46,5 @@ systemctl stop hostapd
 cp -f "${SCRIPT_DIR}/etc/hostapd/hostapd.conf" /etc/hostapd/hostapd.conf
 cp -f "${SCRIPT_DIR}/etc/default/hostapd" /etc/default/hostapd
 
+echo "RPI configured as wifi access-point"
 echo "You should reboot now."
