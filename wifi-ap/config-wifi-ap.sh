@@ -34,7 +34,6 @@ systemctl stop dnsmasq
 cp -f "${SCRIPT_DIR}/etc/dnsmasq.conf" /etc/dnsmasq.conf
 
 # disable current WiFi
-systemctl stop wpa_supplicant.service
 systemctl disable wpa_supplicant.service
 
 # configure hostapd to change WiFi to Access Point
