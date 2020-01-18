@@ -83,3 +83,18 @@ chown -R 1000:1000 /home/pi
 rm -rf ~/.fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all --no-zsh --no-fish
+
+# bash-git-prompt
+rm -rf ~/.bash-git-prompt
+git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt
+
+if [ "$(grep -c bash-git-prompt ~/.bashrc )" -eq 0 ]; then
+echo "Installing bash-git-prompt..."
+cat >> ~/.bashrc << EOF
+if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
+    GIT_PROMPT_ONLY_IN_REPO=1
+    source $HOME/.bash-git-prompt/gitprompt.sh
+fi
+EOF
+echo "Done."
+fi
