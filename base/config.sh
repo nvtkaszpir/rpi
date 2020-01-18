@@ -2,6 +2,12 @@
 set -ex
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 
+if [ ! -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" ]; then
+  echo "Missing ${SCRIPT_DIR}/boot/wpa_supplicant.conf"
+  echo "Make sure to create it"
+  exit 1
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 
 hostnamectl set-hostname hormes
