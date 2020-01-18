@@ -8,6 +8,7 @@ if [ ! -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" ]; then
   exit 1
 fi
 
+cp -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" /boot/wpa_supplicant.conf
 export DEBIAN_FRONTEND=noninteractive
 
 hostnamectl set-hostname hormes
