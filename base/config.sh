@@ -8,19 +8,18 @@ if [ ! -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" ]; then
   exit 1
 fi
 
-cp -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" /boot/wpa_supplicant.conf
-export DEBIAN_FRONTEND=noninteractive
+sudo cp -f "${SCRIPT_DIR}/boot/wpa_supplicant.conf" /boot/wpa_supplicant.conf
 
-hostnamectl set-hostname hormes
+sudo hostnamectl set-hostname hormes
 
-cp -rf "${SCRIPT_DIR}/etc/" /etc/
-dpkg-reconfigure -f noninteractive locales
-dpkg-reconfigure -f noninteractive tzdata
+sudo cp -rf "${SCRIPT_DIR}/etc/" /etc/
+sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure -f noninteractive locales
+sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure -f noninteractive tzdata
 
-apt-get update
-apt-get -y dist-upgrade
-apt-get remove -y ntp
-apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get remove -y ntp
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   chrony \
   curl \
   dnsmasq \
@@ -46,7 +45,6 @@ apt-get install -y \
   rfkill \
   rsync \
   rsyslog \
-  sysstat \
   tmux \
   tree \
   unzip \
@@ -56,48 +54,49 @@ apt-get install -y \
   && echo "OK!"
 
 # rpi specific packages
-apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   python3-gpiozero \
   python3-picamera \
   wiringpi \
   && echo "Rpi packages OK!"
 
+
 # disable IPv6
-cp -f "${SCRIPT_DIR}/etc/sysctl.d/ipv6-disable.conf" /etc/sysctl.d/ipv6-disable.conf
+sudo cp -f "${SCRIPT_DIR}/etc/sysctl.d/ipv6-disable.conf" /etc/sysctl.d/ipv6-disable.conf
 
-systemctl enable chrony
-systemctl start chrony
+sudo systemctl enable chrony
+sudo systemctl start chrony
 
-systemctl enable rsyslog
-systemctl start rsyslog
+sudo systemctl enable rsyslog
+sudo systemctl start rsyslog
 
-systemctl enable dnsmasq
-systemctl start dnsmasq
+sudo systemctl enable dnsmasq
+sudo systemctl start dnsmasq
 
-systemctl enable ssh
-systemctl start ssh
+sudo systemctl enable ssh
+sudo systemctl start ssh
 
 # more user friendly message on main screen
-cp -f "${SCRIPT_DIR}/etc/issue" /etc/issue
+sudo cp -f "${SCRIPT_DIR}/etc/issue" /etc/issue
 
 # you never know, lol ;)
-apt-get install -y openjdk-11-jdk
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-11-jdk
 
-# pi
-chown -R 1000:1000 /home/pi
+# fix permissions
+sudo chown -R "${UID}:${UID}" "${HOME}"
 
 # fzf
-rm -rf ~/.fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all --no-zsh --no-fish
+rm -rf "${HOME}/.fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
+"${HOME}/.fzf/install" --all --no-zsh --no-fish
 
 # bash-git-prompt
-rm -rf ~/.bash-git-prompt
-git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt
+rm -rf "${HOME}/.bash-git-prompt"
+git clone --depth=1 https://github.com/magicmonty/bash-git-prompt.git "${HOME}/.bash-git-prompt"
 
-if [ "$(grep -c bash-git-prompt ~/.bashrc )" -eq 0 ]; then
+if [ "$(grep -c bash-git-prompt "${HOME}/.bashrc" )" -eq 0 ]; then
 echo "Installing bash-git-prompt..."
-cat >> ~/.bashrc << EOF
+cat >> "${HOME}/.bashrc" << EOF
 if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=1
     source $HOME/.bash-git-prompt/gitprompt.sh

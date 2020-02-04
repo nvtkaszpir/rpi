@@ -12,9 +12,8 @@ or to install anything on any other machine.
 
 ## Known limitations
 
-* use at least 32GB sdcard
+* python 3.7.6 and picamera have [issues](https://github.com/waveform80/picamera/issues/604)
 * tested with `buster` only
-* wifi-ap was not fully tested, just wrote it from memory but should work
 * anything else ¯\_(ツ)_/¯
 
 ## Installation
@@ -27,7 +26,7 @@ or to install anything on any other machine.
 * Use other dirs for additional tuning
 * unmount sd-card, install in device, boot device
 * (in case of wifi-ap) connect to the device via ethernet cable
-* run on device:
+* run on device, you will be asked for sudo:
 
 ```bash
 ssh pi@raspberrypi
@@ -37,16 +36,33 @@ sudo apt-get update && sudo apt-get install -y git tmux
 tmux
 git clone http://github.com/nvtkaszpir/rpi
 cd rpi
-sudo ./base/config.sh
+./base/config.sh
+./base/config-bt.sh
+./base/config-cli.sh
 
 ```
 
 Run other customizations scripts if needed.
 
+## Test
+
+run [pre-commit](https://pre-commit.com/) hooks:
+
+```bash
+pre-commit run
+```
+
+Or go full mental:
+
+```bash
+pre-commit run -a
+```
+
 ## TODO
 
+* check I2C 400, check SPI
+* bluetooth xbox controller auto-pair
 * notification that install is complete (slack/discord)
-* test wifi-ap
 * wrapper script for mounted sd-card?
 * fetch data for donkey from gh
 * rclone
