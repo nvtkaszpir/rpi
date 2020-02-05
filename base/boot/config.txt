@@ -1,8 +1,6 @@
 # customizations
 disable_splash=1
 enable_uart=0
-dtparam=i2c_arm=on
-dtparam=spi=on
 # set to 1 to turn on gui or camera
 start_x=1
 # if you ave gui, make gpu memory 128, otherwise 16 is enough
@@ -57,8 +55,9 @@ disable_overscan=1
 
 # Uncomment some or all of these to enable the optional hardware interfaces
 #dtparam=i2c_arm=on
+dtparam=i2c_arm=on,i2c_arm_baudrate=400000
 #dtparam=i2s=on
-#dtparam=spi=on
+dtparam=spi=on
 
 # Uncomment this to enable infrared communication.
 #dtoverlay=gpio-ir,gpio_pin=17
