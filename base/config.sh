@@ -29,6 +29,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   git \
   htp \
   inxi \
+  jq \
   iotop \
   lnav \
   lsb-release \
