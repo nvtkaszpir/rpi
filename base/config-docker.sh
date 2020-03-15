@@ -14,5 +14,14 @@ sudo apt-get update
 # must use --no-install-recommends because aufs is in recommended and it fails
 # to install, yet it is not needed to run containers
 sudo apt install --no-install-recommends docker-ce
+
+# add pi user to docker group, remember to relogin
+sudo usermod -aG docker pi
+
+# disable docker/containerd by default to save memory
+
 sudo systemctl stop docker
 sudo systemctl disable docker
+
+sudo systemctl stop containerd
+sudo systemctl disable containerd
